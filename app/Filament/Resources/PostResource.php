@@ -10,11 +10,13 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Forms\Get;
 use Filament\Resources\Concerns\Translatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use CodeZero\UniqueTranslation\UniqueTranslationRule;
 
 class PostResource extends Resource
 {
@@ -48,8 +50,7 @@ class PostResource extends Resource
                     ->maxLength(255)
                     ->required()
                     ->live('onBlur')
-                    ->afterStateUpdated(function(string $operation, string $state, Forms\Set $set)
-                    {
+                    ->afterStateUpdated(function (string $operation, string $state, Forms\Set $set) {
                         if ($operation == 'edit' || is_null($state)) {
                             return;
                         }
@@ -60,7 +61,9 @@ class PostResource extends Resource
                 Forms\Components\TextInput::make('slug')
                     ->label(__('Fragmento de url'))
                     ->required()
-                    ->unique(ignoreRecord: true),
+                    ->rules([
+                        fn(Get $get) => UniqueTranslationRule::for('posts', 'slug')->ignore($get('id'))
+                    ]),
                 Forms\Components\DatePicker::make('date')
                     ->label(__('Fecha'))
                     ->default(date('now'))
@@ -84,36 +87,17 @@ class PostResource extends Resource
                     ->multiple()
                     ->searchable()
                     ->preload()
-                    ->required()
-                    ->createOptionForm([
-                        Forms\Components\TextInput::make('name')
-                            ->label(__('Nombre'))
-                            ->required()
-                            ->live('onBlur')
-                            ->afterStateUpdated(function(string $operation, string $state, Forms\Set $set)
-                            {
-                                if ($operation == 'edit' || is_null($state)) {
-                                    return;
-                                }
-
-                                $set('slug', Str::slug($state));
-                            })
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('slug')
-                            ->label(__('Fragmento de url'))
-                            ->required()
-                            ->maxLength(255),
-                    ]),
-                    SpatieMediaLibraryFileUpload::make('images')
-                        ->label(__('Imágenes'))
-                        ->collection('post_images')
-                        ->reorderable()
-                        ->multiple()
-                        ->panelLayout('grid')
-                        ->columnSpanFull(),
-                    Forms\Components\Checkbox::make('published')
-                        ->label(__('Visible'))
-                        ->columnSpanFull(),
+                    ->required(),
+                SpatieMediaLibraryFileUpload::make('images')
+                    ->label(__('Imágenes'))
+                    ->collection('post_images')
+                    ->reorderable()
+                    ->multiple()
+                    ->panelLayout('grid')
+                    ->columnSpanFull(),
+                Forms\Components\Checkbox::make('published')
+                    ->label(__('Visible'))
+                    ->columnSpanFull(),
             ])
             ->columns(3);
     }

@@ -47,8 +47,7 @@ class PostCategoryResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->label(__('Nombre'))
                     ->live('onBlur')
-                    ->afterStateUpdated(function(string $operation, string $state, Forms\Set $set)
-                    {
+                    ->afterStateUpdated(function (string $operation, string $state, Forms\Set $set) {
                         if ($operation == 'edit' || is_null($state)) {
                             return;
                         }
@@ -60,7 +59,7 @@ class PostCategoryResource extends Resource
                 Forms\Components\TextInput::make('slug')
                     ->label(__('Fragmento de url'))
                     ->rules([
-                        UniqueTranslationRule::for('posts', 'slug')
+                        fn(Get $get) => UniqueTranslationRule::for('post_categories', 'slug')->ignore($get('id'))
                     ])
                     ->required()
                     ->unique(ignoreRecord: true),
