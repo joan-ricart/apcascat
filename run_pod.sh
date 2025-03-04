@@ -1,11 +1,13 @@
 #!/bin/bash
 
-PROJECT_NAME="apcascat"
-POD_NAME=$PROJECT_NAME"_pod"
-DB_VOLUME=$PROJECT_NAME"_mysql_data"
+APP_NAME=apcascat
+IMAGE_NAME="$APP_NAME/$APP_NAME-app"
+POD_NAME=$APP_NAME"_pod"
+DB_VOLUME=$APP_NAME"_mysql_data"
 DB_PORT=3406
 APP_PORT=8090
 APP_PORT_HTTPS=449
+SERVER_NAME=http://localhost # Used by Caddyfile in frankenphp
 
 # Check if the pod already exists
 if podman pod exists "$POD_NAME"; then
@@ -18,11 +20,26 @@ fi
 echo -e "\nCreating pod $POD_NAME..."
 podman pod create --name "$POD_NAME" \
     -p $DB_PORT:3306 \
-    -p $APP_PORT:80 \
-    -p $APP_PORT_HTTPS:443 \
-    -p $APP_PORT_HTTPS:443/udp
+    -p $APP_PORT:80
+    # \
+    # -p $APP_PORT_HTTPS:443 \
+    # -p $APP_PORT_HTTPS:443/udp
 
-# Start MySQL Container
+# Check if the image exists
+if ! podman images --format "{{.Repository}}" | grep -q "^$IMAGE_NAME$"; then
+    echo -e "\nImage $IMAGE_NAME not found, building it now..."
+    podman build -t "$IMAGE_NAME" .
+else
+    echo -e "\nImage $IMAGE_NAME already exists, skipping build..."
+fi
+
+# Start the App Container inside the Pod
+echo "Starting App container..."
+podman run -d --pod "$POD_NAME" --name app \
+    -e SERVER_NAME=$SERVER_NAME \
+    $IMAGE_NAME
+
+# Start MySQL Container inside the Pod
 echo "Starting MySQL container..."
 podman run -d --pod "$POD_NAME" --name db \
     -e MYSQL_ROOT_PASSWORD=root \
@@ -35,3 +52,4 @@ podman run -d --pod "$POD_NAME" --name db \
 # Show running pods and containers
 echo -e "\nPod and containers are running:"
 podman pod ps
+podman ps -a
