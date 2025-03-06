@@ -24,8 +24,6 @@
     "Cancel": "Cancel·la",
     "Categoría de noticia": "Categoría de notícia",
     "Categorías de noticia": "Categoríes de notícia",
-    "Noticia": "Notícia",
-    "Noticias": "Notícies",
     "Choose": "Triar",
     "Choose :name": "Trieu :name",
     "Choose File": "Tria el fitxer",
@@ -130,6 +128,8 @@
     "Not Found": "No trobat",
     "Not Implemented": "No implementat",
     "Not Modified": "No modificat",
+    "Noticia": "Notícia",
+    "Noticias": "Notícies",
     "of": "de",
     "OK": "D'acord",
     "Open": "Obert",
@@ -222,6 +222,7 @@
     "URI Too Long": "URI massa llarg",
     "Use Proxy": "Utilitzeu el proxy",
     "User": "Usuari",
+    "validation.unique_translation": "Aquest camp ha de ser únic. Ja existeix un amb aquest valor.",
     "Variant Also Negotiates": "La variant també es negocia",
     "Verify Email Address": "Confirmeu la vostra adreça electrònica",
     "View": "Vista",
@@ -229,6 +230,5 @@
     "Web Server is Down": "El servidor web està caigut",
     "Whoops!": "Vaja!",
     "Yes": "Sí",
-    "You are receiving this email because we received a password reset request for your account.": "Heu rebut aquest correu electrònic perquè s'ha solicitat el restabliment de la contrasenya per al vostre compte.",
-    "validation.unique_translation": "Aquest camp ha de ser únic. Ja existeix un amb aquest valor."
+    "You are receiving this email because we received a password reset request for your account.": "Heu rebut aquest correu electrònic perquè s'ha solicitat el restabliment de la contrasenya per al vostre compte."
 }

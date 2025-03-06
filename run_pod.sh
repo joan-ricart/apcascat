@@ -1,13 +1,13 @@
 #!/bin/bash
 
 APP_NAME=apcascat
-IMAGE_NAME="$APP_NAME/$APP_NAME-app"
+IMAGE_NAME="docker.io/joanricart/$APP_NAME-app"
 POD_NAME=$APP_NAME"_pod"
 DB_VOLUME=$APP_NAME"_mysql_data"
 DB_PORT=3406
 APP_PORT=8090
 APP_PORT_HTTPS=449
-SERVER_NAME=http://localhost # Used by Caddyfile in frankenphp
+SERVER_NAME=:80 # Disables https in Caddy (frankenphp)
 
 # Check if the pod already exists
 if podman pod exists "$POD_NAME"; then
@@ -37,6 +37,7 @@ fi
 echo "Starting App container..."
 podman run -d --pod "$POD_NAME" --name app \
     -e SERVER_NAME=$SERVER_NAME \
+    -v $PWD:/app \
     $IMAGE_NAME
 
 # Start MySQL Container inside the Pod

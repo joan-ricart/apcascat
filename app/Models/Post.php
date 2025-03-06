@@ -12,7 +12,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Post extends Model implements HasMedia
 {
-    use InteractsWithMedia, HasTranslations;
+    use InteractsWithMedia, HasTranslations, HasFactory;
 
     protected $guarded = ['id'];
 

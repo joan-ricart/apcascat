@@ -8,8 +8,24 @@ WORKDIR /app
 COPY . .
 
 RUN install-php-extensions \
-	pdo_mysql \
 	gd \
 	intl \
 	zip \
-	opcache
+	opcache \
+    pdo_mysql \
+    sodium \
+    zip \
+    bcmath \
+    exif
+
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Install Node.js and npm
+RUN apk add --no-cache nodejs npm
+
+# Install Composer dependencies
+RUN composer install --no-dev --optimize-autoloader
+
+# Install Node.js dependencies
+RUN npm install
