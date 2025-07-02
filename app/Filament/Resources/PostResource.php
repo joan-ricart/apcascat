@@ -106,7 +106,7 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('slug'),
             ])
             ->filters([

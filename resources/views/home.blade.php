@@ -1,33 +1,24 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.default')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('title', 'Inici')
 
-    <title>Laravel</title>
+@section('content')
+    <main class="container py-12">
+        @forelse ($posts as $post)
+            <div>
+                {{ $post->title }}
+                <img src="{{ $post->getImages()->first() }}" />
+            </div>
+        @empty
+            <div>No posts found</div>
+        @endforelse
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-    <!-- Styles / Scripts -->
-    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @endif
-</head>
-
-<body class="">
-    @yield('content')
-    Home page
-
-    @forelse ($categories as $category)
-        <div>
-            {{ $category->name }}
-        </div>
-    @empty
-        <div>No categories found</div>
-    @endforelse
-</body>
-
-</html>
+        @forelse ($categories as $category)
+            <div>
+                {{ $category->name }}
+            </div>
+        @empty
+            <div>No categories found</div>
+        @endforelse
+    </main>
+@endsection

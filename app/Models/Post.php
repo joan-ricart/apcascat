@@ -12,7 +12,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Post extends Model implements HasMedia
 {
-    use InteractsWithMedia, HasTranslations, HasFactory;
+    use InteractsWithMedia, HasTranslations;
 
     protected $guarded = ['id'];
 
@@ -23,7 +23,7 @@ class Post extends Model implements HasMedia
      */
     public function categories(): BelongsToMany
     {
-       return $this->belongsToMany(PostCategory::class);
+        return $this->belongsToMany(PostCategory::class);
     }
 
     public function registerMediaConversions(?Media $media = null): void
@@ -32,5 +32,10 @@ class Post extends Model implements HasMedia
             ->addMediaConversion('preview')
             ->fit(Fit::Contain, 300, 300)
             ->nonQueued();
+    }
+
+    public function getImages()
+    {
+        return $this->getMedia('post_images')->map(fn($item) => $item->getUrl());
     }
 }
