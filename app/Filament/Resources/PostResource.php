@@ -96,7 +96,7 @@ class PostResource extends Resource
                     ->panelLayout('grid')
                     ->columnSpanFull(),
                 Forms\Components\Checkbox::make('published')
-                    ->label(__('Visible'))
+                    ->label(__('Publicar'))
                     ->columnSpanFull(),
             ])
             ->columns(3);

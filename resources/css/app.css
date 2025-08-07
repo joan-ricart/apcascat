@@ -1,16 +1,6 @@
 @import "tailwindcss";
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source "../**/*.blade.php";
-@source "../**/*.js";
-@source "../**/*.vue";
-
 @utility container {
     margin-inline: auto;
-    padding-inline: 1rem;
-}
-
-[x-cloak] {
-    display: none !important;
+    padding-inline: 2rem;
 }

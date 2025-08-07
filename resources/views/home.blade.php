@@ -4,14 +4,15 @@
 
 @section('content')
     <main class="container py-12">
-        @forelse ($posts as $post)
-            <div>
-                {{ $post->title }}
-                <img src="{{ $post->getImages()->first() }}" />
-            </div>
-        @empty
-            <div>No posts found</div>
-        @endforelse
+        <div class="container">
+            @if ($posts)
+                <div class="grid grid-cols-3 gap-4">
+                    @foreach ($posts as $post)
+                        <x-posts.card :$post></x-posts.card>
+                    @endforeach
+                </div>
+            @endif
+        </div>
 
         @forelse ($categories as $category)
             <div>

@@ -230,5 +230,9 @@
     "Web Server is Down": "El servidor web està caigut",
     "Whoops!": "Vaja!",
     "Yes": "Sí",
-    "You are receiving this email because we received a password reset request for your account.": "Heu rebut aquest correu electrònic perquè s'ha solicitat el restabliment de la contrasenya per al vostre compte."
+    "You are receiving this email because we received a password reset request for your account.": "Heu rebut aquest correu electrònic perquè s'ha solicitat el restabliment de la contrasenya per al vostre compte.",
+    "Nombre": "Nom",
+    "Fragmento de url": "Fragment de url",
+    "Publicar": "Publicar",
+    "Imágenes": "Imatges"
 }
