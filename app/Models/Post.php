@@ -9,6 +9,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model implements HasMedia
 {
@@ -23,7 +24,7 @@ class Post extends Model implements HasMedia
      */
     public function categories(): BelongsToMany
     {
-       return $this->belongsToMany(PostCategory::class);
+        return $this->belongsToMany(PostCategory::class);
     }
 
     public function registerMediaConversions(?Media $media = null): void

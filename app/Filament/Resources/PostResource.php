@@ -96,7 +96,7 @@ class PostResource extends Resource
                     ->panelLayout('grid')
                     ->columnSpanFull(),
                 Forms\Components\Checkbox::make('published')
-                    ->label(__('Visible'))
+                    ->label(__('Publicar'))
                     ->columnSpanFull(),
             ])
             ->columns(3);
@@ -106,7 +106,7 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('slug'),
             ])
             ->filters([
