@@ -17,7 +17,7 @@ return new class extends Migration
             $table->json('title');
             $table->json('body');
             $table->json('intro')->nullable();
-            $table->json('slug');
+            $table->string('slug')->unique();
             $table->boolean('published')->default(false);
             $table->timestamps();
         });

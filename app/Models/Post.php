@@ -15,9 +15,18 @@ class Post extends Model implements HasMedia
 {
     use InteractsWithMedia, HasTranslations;
 
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'date',
+        'title',
+        'body',
+        'intro',
+        'slug',
+        'published'
+    ];
 
-    public $translatable = ['title', 'body', 'intro', 'slug'];
+    protected $casts = ['date' => 'datetime'];
+
+    public $translatable = ['title', 'body', 'intro'];
 
     /**
      * @return BelongsToMany<Model,Post>
@@ -25,6 +34,11 @@ class Post extends Model implements HasMedia
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(PostCategory::class);
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 
     public function registerMediaConversions(?Media $media = null): void
@@ -37,6 +51,16 @@ class Post extends Model implements HasMedia
 
     public function getImages()
     {
-        return $this->getMedia('post_images')->map(fn($item) => $item->getUrl());
+        return $this->getMedia('images')->map(fn($item) => $item->getUrl());
+    }
+
+    public function getFiles()
+    {
+        return $this->getMedia('files')->map(fn($item) => $item->getUrl());
+    }
+
+    public function getFormattedDateAttribute()
+    {
+        return $this->date->format('d M Y');
     }
 }

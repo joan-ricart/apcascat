@@ -15,8 +15,15 @@
 
 <body>
     @include('partials.header')
-    @yield('content')
-    @include('partials.footer')
+    <div class="container grid gap-10 py-20 lg:grid-cols-12">
+        <main class="col-span-8">
+            @yield('content')
+        </main>
+        <aside class="col-span-4">
+            @yield('sidebar')
+        </aside>
+    </div>
+    @stack('scripts')
 </body>
 
 </html>

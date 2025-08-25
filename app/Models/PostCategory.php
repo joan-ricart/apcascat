@@ -12,12 +12,18 @@ class PostCategory extends Model
 
     protected $guarded = ['id'];
 
-    public $translatable = ['name', 'slug'];
+    public $translatable = ['name'];
 
     /**
      * @return BelongsToMany<Model,Post>
      */
-    public function posts(): BelongsToMany {
-       return $this->belongsToMany(PostCategory::class);
+    public function posts(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class);
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 }

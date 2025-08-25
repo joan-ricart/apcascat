@@ -3,23 +3,24 @@
 @section('title', 'Inici')
 
 @section('content')
-    <main class="container py-12">
-        <div class="container">
-            @if ($posts)
-                <div class="grid grid-cols-3 gap-4">
-                    @foreach ($posts as $post)
-                        <x-posts.card :$post></x-posts.card>
-                    @endforeach
-                </div>
-            @endif
-        </div>
-
-        @forelse ($categories as $category)
-            <div>
-                {{ $category->name }}
+    <div class="container py-20">
+        <section>
+            <div class="mb-6 flex items-center justify-between gap-4">
+                <h2 class="text-2xl font-bold">{{ __('Noticias más recientes') }}</h2>
+                <a href="{{ route('posts.index') }}"
+                    class="bg-brand rounded-lg px-2.5 py-1.5 text-sm text-white shadow shadow transition-all hover:-translate-y-[1px] hover:shadow-md hover:shadow-md">
+                    {{ __('Ver todas las noticias') }}
+                </a>
             </div>
-        @empty
-            <div>No categories found</div>
-        @endforelse
-    </main>
+            <div class="mb-10 grid items-stretch gap-4 lg:grid-cols-3">
+                <x-posts.list :posts="$posts" />
+            </div>
+        </section>
+
+    </div>
+
+
+    <a href="https://apcas.es/asociate/" target="_blank" class="bg-brand block px-4 py-20 text-center text-xl text-white">
+        {{ __('¿Eres perito profesional? ¡Asóciate!') }}
+    </a>
 @endsection

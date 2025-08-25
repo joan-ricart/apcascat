@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('post_categories', function (Blueprint $table) {
             $table->id();
             $table->json('name');
-            $table->json('slug');
+            $table->string('slug')->unique();
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

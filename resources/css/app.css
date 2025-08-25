@@ -1,6 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 @import "tailwindcss";
 
 @utility container {
     margin-inline: auto;
     padding-inline: 2rem;
+}
+
+@theme {
+    --font-sans: "Open Sans", sans-serif;
+    --color-brand: #cc414f;
+    --color-black: #222;
+}
+
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+
+    .no-tailwind-reset * {
+        all: revert;
+    }
 }
