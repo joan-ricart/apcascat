@@ -15,7 +15,7 @@ class Categories extends Component
      */
     public function __construct()
     {
-        $this->categories = PostCategory::withCount('posts')->get();
+        $this->categories = PostCategory::withCount('posts')->orderByDesc('posts_count')->get();
     }
 
     /**

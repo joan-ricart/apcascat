@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('post_categories', function (Blueprint $table) {
             $table->id();
-            $table->json('name');
+            $table->jsonb('name');
             $table->string('slug')->unique();
             $table->boolean('active')->default(true);
             $table->timestamps();

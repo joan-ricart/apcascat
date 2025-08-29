@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->json('title');
-            $table->json('body');
-            $table->json('intro')->nullable();
+            $table->jsonb('title');
+            $table->jsonb('body');
+            $table->jsonb('intro')->nullable();
             $table->string('slug')->unique();
             $table->boolean('published')->default(false);
             $table->timestamps();

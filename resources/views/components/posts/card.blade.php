@@ -1,6 +1,6 @@
 @props(['post'])
 
-<div class="overflow-hidden rounded-md border shadow">
+<div class="overflow-hidden rounded-md border shadow transition-transform hover:scale-[1.01] hover:shadow-md">
     <a href="{{ route('posts.show', $post) }}" class="block">
         @if ($post->getImages()->first())
             <img src="{{ $post->getImages()->first() }}" class="aspect-[4/3] w-full object-cover" />
@@ -18,20 +18,11 @@
     </a>
     <div onclick="window.location='{{ route('posts.show', $post) }}'" class="p-4">
         <div class="mb-2 flex items-center gap-2">
-            <div class="shrink-0">
-                <x-formatted-date class="text-sm" :date="$post->formattedDate" />
-            </div>
-            <div>•</div>
-            <div class="shrink grow-0">
-                <x-post-categories class="text-sm" :categories="$post->categories->take(1)" />
-            </div>
+            <x-formatted-date class="shrink-0 text-sm" :date="$post->formattedDate" />
+            <div class="text-xs text-stone-200">•</div>
+            <x-post-categories class="shrink grow-0 text-sm" :categories="$post->categories->take(1)" />
         </div>
 
         <h2 class="mb-2 line-clamp-3 text-base font-semibold">{!! $post->title !!}</h2>
-
-        {{-- <div class="mb-4 line-clamp-2 text-sm font-normal">{!! $post->intro !!}</div> --}}
-
-        {{-- <a href="{{ route('posts.show', $post) }}"
-            class="bg-brand block rounded-md border px-4 py-2 text-center text-white shadow">{{ __('Ver noticia') }}</a> --}}
     </div>
 </div>

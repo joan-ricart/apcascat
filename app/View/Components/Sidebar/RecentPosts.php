@@ -14,7 +14,7 @@ class RecentPosts extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(int $limit = 6)
+    public function __construct(int $limit = 4)
     {
         $this->posts = Post::orderByDesc('date')->take($limit)->get();
     }

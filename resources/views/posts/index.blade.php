@@ -3,9 +3,15 @@
 @section('title', __('Noticias'))
 
 @section('content')
-    <h1 class="mb-6 text-2xl font-bold">{{ __('Noticias') }} APCAS Catalunya</h1>
+    <x-breadcrumb :items="[['title' => __('Noticias')]]" />
 
-    <div id="posts-container" class="grid grid-cols-2 items-stretch gap-4">
+    <header class="mb-6">
+        <h1 class="mb-1 text-2xl font-bold lg:text-3xl">{{ __('Noticias') }} APCAS Catalunya</h1>
+        <p class="text-sm text-stone-500 md:text-base">{{ __("Mostrant totes les noticíes més recents d'APCAS Catalunya.") }}
+        </p>
+    </header>
+
+    <div id="posts-container">
         <x-posts.list :posts="$posts->items()" />
     </div>
 
@@ -13,7 +19,7 @@
         <div class="mt-8 text-center">
             <button id="load-more-button" data-next-page-url="{{ $posts->nextPageUrl() }}"
                 class="rounded-lg border bg-black px-10 py-3 text-[15px] font-semibold text-white shadow hover:bg-black/90">
-                {{ __('Cargar más') }}
+                {{ __('Veure més') }}
             </button>
         </div>
     @endif

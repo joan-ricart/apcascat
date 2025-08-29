@@ -3,24 +3,14 @@
 @section('title', 'Inici')
 
 @section('content')
-    <div class="container py-20">
-        <section>
-            <div class="mb-6 flex items-center justify-between gap-4">
-                <h2 class="text-2xl font-bold">{{ __('Noticias más recientes') }}</h2>
-                <a href="{{ route('posts.index') }}"
-                    class="bg-brand rounded-lg px-2.5 py-1.5 text-sm text-white shadow shadow transition-all hover:-translate-y-[1px] hover:shadow-md hover:shadow-md">
-                    {{ __('Ver todas las noticias') }}
-                </a>
-            </div>
-            <div class="mb-10 grid items-stretch gap-4 lg:grid-cols-3">
-                <x-posts.list :posts="$posts" />
-            </div>
-        </section>
-
-    </div>
-
-
-    <a href="https://apcas.es/asociate/" target="_blank" class="bg-brand block px-4 py-20 text-center text-xl text-white">
-        {{ __('¿Eres perito profesional? ¡Asóciate!') }}
-    </a>
+    <section class="container py-12">
+        <div class="mb-6 flex flex-wrap justify-between gap-4 md:flex-nowrap md:items-center">
+            <h2 class="text-2xl font-bold lg:text-3xl">{{ __('Últimes notícies APCAS') }}</h2>
+            <a href="{{ route('posts.index') }}"
+                class="bg-brand rounded-lg px-3 py-1.5 text-sm font-semibold text-white shadow transition-all hover:-translate-y-[1px] hover:shadow-md sm:text-base">
+                {{ __('Ver todas las noticias') }}
+            </a>
+        </div>
+        <x-posts.list :posts="$posts" />
+    </section>
 @endsection

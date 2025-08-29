@@ -4,13 +4,12 @@
 
 @section('content')
 
-    <div class="mb-4 text-sm text-black">
-        <a href="{{ route('home') }}" class="hover:underline">{{ __('Inici') }}</a>
-        <span class="text-gray-700">//</span>
-        <a href="{{ route('posts.index') }}" class="hover:underline">{{ __('Noticias') }}</a>
-    </div>
+    <x-breadcrumb :items="[
+        ['url' => route('posts.index'), 'title' => __('Noticias')],
+        ['title' => $post->title]
+    ]" />
 
-    <header class="mb-6">
+    <header class="mb-4">
         <h1 class="mb-3 text-3xl font-bold">{!! $post->title !!}</h1>
         <div class="flex items-center justify-start gap-2">
             <x-formatted-date :date="$post->formattedDate" />
@@ -19,20 +18,29 @@
         </div>
     </header>
 
-    <img src="{{ $post->getImages()->first() }}" class="mb-6 w-full" />
-
-    <div class="no-tailwind-reset prose mb-8">
+    <div class="no-tailwind-reset prose mb-4">
         {!! $post->intro !!}
+    </div>
+
+    <img src="{{ $post->getImages()->first() }}" class="mb-4 w-full" />
+
+    <div class="no-tailwind-reset prose mb-4">
         {!! $post->body !!}
     </div>
 
     @if ($post->getFiles()->isNotEmpty())
         <div class="mb-8 rounded-lg border bg-stone-50 p-6 shadow">
-            <div class="mb-2 font-bold">{{ __('Documentación adjunta') }}</div>
+            <div class="mb-3 font-bold">{{ __('Documentación adjunta') }}</div>
             @foreach ($post->getFiles() as $k => $file)
                 <div>
-                    <a href="{{ $file }}" target="_blank" class="hover:underline">Document {{ $k + 1 }} -
-                        {{ __('Descargar') }}</a>
+                    <a href="{{ $file }}" target="_blank" class="flex items-center gap-2 py-0.5 hover:underline">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13" />
+                        </svg>
+                        <span>Document {{ $k + 1 }}</span>
+                    </a>
                 </div>
             @endforeach
         </div>
@@ -52,6 +60,8 @@
 @endsection
 
 @section('sidebar')
-    <x-sidebar.categories />
-    <x-sidebar.recent-posts />
+    <div class="space-y-6">
+        <x-sidebar.recent-posts />
+        <x-sidebar.categories />
+    </div>
 @endsection

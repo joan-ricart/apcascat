@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use CodeZero\UniqueTranslation\UniqueTranslationRule;
+use Illuminate\Support\Facades\App;
 
 class PostResource extends Resource
 {
@@ -83,17 +84,26 @@ class PostResource extends Resource
                 Forms\Components\Select::make('categories')
                     ->label(__('Categorías'))
                     ->columnSpanFull()
-                    ->relationship(titleAttribute: 'name')
-                    ->multiple()
+                    ->relationship(
+                        name: 'categories',
+                        titleAttribute: 'name'
+                    )
+                    // ->multiple()
                     ->searchable()
                     ->preload()
                     ->required(),
                 SpatieMediaLibraryFileUpload::make('images')
                     ->label(__('Imágenes'))
-                    ->collection('post_images')
+                    ->collection('images')
                     ->reorderable()
                     ->multiple()
                     ->panelLayout('grid')
+                    ->columnSpanFull(),
+                SpatieMediaLibraryFileUpload::make('files')
+                    ->label(__('Documentos adjuntos'))
+                    ->collection('files')
+                    ->reorderable()
+                    ->multiple()
                     ->columnSpanFull(),
                 Forms\Components\Checkbox::make('published')
                     ->label(__('Publicar'))

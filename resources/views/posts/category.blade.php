@@ -3,14 +3,17 @@
 @section('title', __('Noticias'))
 
 @section('content')
-    <header>
-        <h1 class="text-lg font-bold">{{ $postCategory->name }}</h1>
+    <x-breadcrumb :items="[['url' => route('posts.index'), 'title' => __('Noticias')], ['title' => $postCategory->name]]" />
+
+    <header class="mb-6">
+        <h1 class="mb-1 text-3xl font-bold">{{ $postCategory->name }}</h1>
+        <p class="text-sm text-stone-500">{{ __('Mostrant les noticíes més recents de la categoría') }}
+            {{ $postCategory->name }}.
+        </p>
     </header>
 
-    <div id="posts-container" class="grid gap-6">
-        @foreach ($posts as $post)
-            <x-posts.card :post="$post" />
-        @endforeach
+    <div id="posts-container">
+        <x-posts.list :posts="$posts" />
     </div>
 
     @if ($posts->hasMorePages())
@@ -24,8 +27,10 @@
 @endsection
 
 @section('sidebar')
-    <x-sidebar.categories />
-    <x-sidebar.recent-posts limit="5" />
+    <div class="space-y-6">
+        <x-sidebar.recent-posts />
+        <x-sidebar.categories />
+    </div>
 @endsection
 
 @push('scripts')
