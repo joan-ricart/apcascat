@@ -12,6 +12,7 @@ class AssociateController extends Controller
     {
         $province = $request->get('province');
         $specialty = $request->get('specialty');
+        $name = $request->get('name');
 
         $associates = Associate::where('active', true)
             ->when($province, function ($query, $province) {
@@ -19,6 +20,14 @@ class AssociateController extends Controller
             })
             ->when($specialty, function ($query, $specialty) {
                 return $query->whereJsonContains('specialties', [['nombre' => $specialty]]);
+            })
+            ->when($name, function ($query, $name) {
+                return $query->where(function ($query) use ($name) {
+                    $query->whereRaw('LOWER(first_name) like ?', ["%" . strtolower($name) . "%"])
+                        ->orWhereRaw('LOWER(last_name) like ?', ["%" . strtolower($name) . "%"])
+                        ->orWhereRaw('LOWER(city) like ?', ["%" . strtolower($name) . "%"])
+                        ->orWhereRaw('LOWER(province) like ?', ["%" . strtolower($name) . "%"]);
+                });
             })
             ->orderBy('last_name')->get();
 
@@ -31,6 +40,7 @@ class AssociateController extends Controller
             'associates' => $associates,
             'province' => $province,
             'specialty' => $specialty,
+            'name' => $name,
             'provinces' => $provinces,
             'specialties' => $specialties,
         ]);

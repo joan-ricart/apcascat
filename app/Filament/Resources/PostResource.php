@@ -116,11 +116,22 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('slug'),
+                Tables\Columns\TextColumn::make('date')->label(__('Data'))->dateTime('d/m/Y'),
+                Tables\Columns\TextColumn::make('title')->label(__('Títol'))->searchable(query: function (Builder $query, string $search): Builder {
+                    return $query->where('title', 'ilike', "%{$search}%");
+                }),
             ])
             ->filters([
-                //
+                Tables\Filters\TernaryFilter::make('published')
+                    ->label(__('Publicat'))
+                    ->boolean()
+                    ->trueLabel(__('Si'))
+                    ->falseLabel(__('No'))
+                    ->native(false),
+                Tables\Filters\SelectFilter::make('categories')
+                    ->label(__('Categories'))
+                    ->relationship('categories', 'name')
+                    ->native(false),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -129,7 +140,8 @@ class PostResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('date', 'desc');
     }
 
     public static function getRelations(): array

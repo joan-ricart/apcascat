@@ -6,10 +6,8 @@
     <x-breadcrumb :items="[['url' => route('posts.index'), 'title' => __('Noticias')], ['title' => $postCategory->name]]" />
 
     <header class="mb-6">
-        <h1 class="mb-1 text-3xl font-bold">{{ $postCategory->name }}</h1>
-        <p class="text-sm text-stone-500">{{ __('Mostrant les noticíes més recents de la categoría') }}
-            {{ $postCategory->name }}.
-        </p>
+        <h1 class="mb-1 text-2xl font-bold lg:text-3xl">{{ $postCategory->name }}</h1>
+        <p class="text-sm text-stone-500 md:text-base">{{ __('Mostrant les noticíes més recents de la categoría') }} {{ $postCategory->name }}</p>
     </header>
 
     <div id="posts-container">

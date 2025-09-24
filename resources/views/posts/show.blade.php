@@ -10,7 +10,7 @@
     ]" />
 
     <header class="mb-4">
-        <h1 class="mb-3 text-3xl font-bold">{!! $post->title !!}</h1>
+        <h1 class="mb-3 text-2xl font-bold lg:text-3xl">{!! $post->title !!}</h1>
         <div class="flex items-center justify-start gap-2">
             <x-formatted-date :date="$post->formattedDate" />
             <div class="text-gray-300">•</div>

@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200..1000;1,200..1000&display=swap");
 @import "tailwindcss";
 
+[x-cloak] {
+    display: none !important;
+}
+
 @utility container {
     margin-inline: auto;
     padding-inline: 1.25rem;
@@ -9,6 +13,7 @@
 @theme {
     --font-sans: "Nunito Sans", sans-serif;
     --color-brand: #cc414f;
+    --color-brand-gray: #616160;
     --color-black: #222;
 }
 

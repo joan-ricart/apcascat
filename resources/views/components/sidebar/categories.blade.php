@@ -1,7 +1,7 @@
 <div>
     <div class="mb-3 flex items-center gap-2 font-bold">
         <span class="text-brand">▪</span>
-        {{ __('Categorías') }}
+        {{ __('Categories') }}
     </div>
     <nav class="space-y-1 text-sm">
         @foreach ($categories as $category)
