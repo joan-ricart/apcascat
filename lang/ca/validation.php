@@ -38,6 +38,7 @@ return [
     'digits_between'         => ':Attribute ha de tenir entre :min i :max dígits.',
     'dimensions'             => 'Les dimensions de la imatge :attribute no són vàlides.',
     'distinct'               => 'El camp :attribute té un valor duplicat.',
+    'doesnt_contain'         => 'El camp :attribute no ha de contenir cap dels següents: :values.',
     'doesnt_end_with'        => 'El :attribute no pot acabar amb un dels següents: :values.',
     'doesnt_start_with'      => 'El :attribute no pot començar amb un dels següents: :values.',
     'email'                  => ':Attribute no és un e-mail vàlid',
