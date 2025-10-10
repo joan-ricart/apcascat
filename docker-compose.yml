@@ -1,6 +1,9 @@
 services:
   app:
-    build: .
+    build:
+      context: .
+      args:
+        - APP_ENV=${APP_ENV}
     ports:
       - "80:80"
       - "443:443"
@@ -13,33 +16,9 @@ services:
     environment:
       SERVER_NAME: ":80"
       CADDY_GLOBAL_OPTIONS: auto_https disable_redirects
+      TZ: Europe/Madrid
     depends_on:
       - db
-      - redis
-
-  worker:
-    build: .
-    command: php artisan queue:work --verbose --tries=3 --timeout=90
-    restart: unless-stopped
-    volumes:
-      - ./:/app
-      - vendor_data:/app/vendor
-    environment:
-      QUEUE_CONNECTION: ${QUEUE_CONNECTION}
-      REDIS_HOST: ${REDIS_HOST}
-    depends_on:
-      - db
-      - redis
-    healthcheck:
-      disable: true
-
-  redis:
-    image: redis:8-alpine
-    restart: unless-stopped
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
 
   db:
     image: postgres:17-alpine
@@ -53,10 +32,30 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
 
-  adminer:
-    image: adminer
-    ports:
-      - "8080:8080"
+  cron:
+    build:
+      context: .
+      args:
+        - APP_ENV=${APP_ENV}
+    command: >
+      sh -c "mkdir -p /etc/cron.d &&
+      echo '* * * * * cd /app && /usr/local/bin/php artisan schedule:run >> /dev/null 2>&1' > /etc/cron.d/laravel-scheduler &&
+      chmod 0644 /etc/cron.d/laravel-scheduler &&
+      crontab /etc/cron.d/laravel-scheduler &&
+      cron -f"
+    volumes:
+      - ./:/app
+      - vendor_data:/app/vendor
+    environment:
+      TZ: Europe/Madrid
+    depends_on:
+      - app
+    restart: unless-stopped
+
+# adminer:
+#   image: adminer
+#   ports:
+#     - "8080:8080"
 
 volumes:
   caddy_data: {}
@@ -64,4 +63,3 @@ volumes:
   db_data:
     driver: local
   vendor_data: {}
-  redis_data: {}
