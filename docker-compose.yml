@@ -15,7 +15,7 @@ services:
       - caddy_config:/config
     environment:
       SERVER_NAME: "13.37.108.213"
-      CADDY_GLOBAL_OPTIONS: auto_https disable_redirects
+      # CADDY_GLOBAL_OPTIONS: auto_https disable_redirects
       TZ: Europe/Madrid
     depends_on:
       - db
