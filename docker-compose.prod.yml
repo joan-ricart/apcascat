@@ -1,0 +1,54 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        - APP_ENV=production
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      SERVER_NAME: ":80"
+      TZ: Europe/Madrid
+    volumes:
+      - vendor_data:/app/vendor
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    image: postgres:17-alpine
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_DATABASE}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  cron:
+    build:
+      context: .
+      args:
+        - APP_ENV=production
+    command: >
+      sh -c "mkdir -p /etc/cron.d &&
+      echo '* * * * * cd /app && /usr/local/bin/php artisan schedule:run >> /dev/null 2>&1' > /etc/cron.d/laravel-scheduler &&
+      chmod 0644 /etc/cron.d/laravel-scheduler &&
+      crontab /etc/cron.d/laravel-scheduler &&
+      cron -f"
+    environment:
+      TZ: Europe/Madrid
+    depends_on:
+      - app
+    restart: unless-stopped
+
+volumes:
+  vendor_data:
+  caddy_data:
+  caddy_config:
+  db_data:
