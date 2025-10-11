@@ -50,12 +50,31 @@ services:
       TZ: Europe/Madrid
     depends_on:
       - app
-    restart: unless-stopped
 
-# adminer:
-#   image: adminer
-#   ports:
-#     - "8080:8080"
+  node:
+    image: node:24-alpine
+    working_dir: /app
+    command: sh -c "\
+      if [ ! -d node_modules ] || [ -z \"$(ls -A node_modules)\" ]; then \
+        echo 'Installing dependencies...' && npm install; \
+      fi && \
+      npm run dev -- --host"
+    volumes:
+      - ./:/app
+      - ./node_modules:/app/node_modules
+    environment:
+      TZ: Europe/Madrid
+    ports:
+      - "5173:5173"
+    depends_on:
+      - app
+
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
 
 volumes:
   caddy_data: {}
