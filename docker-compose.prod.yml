@@ -46,6 +46,8 @@ services:
     depends_on:
       - app
     restart: unless-stopped
+    healthcheck:
+      disable: true
 
 volumes:
   vendor_data:
