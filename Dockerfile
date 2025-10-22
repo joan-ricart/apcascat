@@ -43,13 +43,13 @@ FROM dunglas/frankenphp:1-php8.4
 
 RUN apt-get update && \
     apt-get install -y locales && \
-    sed -i '/es_ES.UTF-8/s/^# //g' /etc/locale.gen && \
-    locale-gen es_ES.UTF-8 && \
-    update-locale LANG=es_ES.UTF-8
+    sed -i '/ca_ES.UTF-8/s/^# //g' /etc/locale.gen && \
+    locale-gen ca_ES.UTF-8 && \
+    update-locale LANG=ca_ES.UTF-8
 
-ENV LANG=es_ES.UTF-8
-ENV LANGUAGE=es_ES:es
-ENV LC_ALL=es_ES.UTF-8
+ENV LANG=ca_ES.UTF-8
+ENV LANGUAGE=ca_ES:es
+ENV LC_ALL=ca_ES.UTF-8
 
 # Install required PHP extensions
 RUN install-php-extensions \
