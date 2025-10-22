@@ -63,6 +63,6 @@ class Post extends Model implements HasMedia
     {
         return Carbon::parse($this->date)
             ->locale('es')
-            ->translatedFormat('d M Y');
+            ->translatedFormat('d F Y');
     }
 }
