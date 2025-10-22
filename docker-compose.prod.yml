@@ -36,11 +36,7 @@ services:
       args:
         - APP_ENV=production
     command: >
-      sh -c "mkdir -p /etc/cron.d &&
-      echo '* * * * * cd /app && /usr/local/bin/php artisan schedule:run >> /dev/null 2>&1' > /etc/cron.d/laravel-scheduler &&
-      chmod 0644 /etc/cron.d/laravel-scheduler &&
-      crontab /etc/cron.d/laravel-scheduler &&
-      cron -f"
+      sh -c "php /app/artisan schedule:work >> /app/storage/logs/scheduler.log 2>&1"
     environment:
       TZ: Europe/Madrid
     depends_on:
