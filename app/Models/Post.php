@@ -9,7 +9,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 
 class Post extends Model implements HasMedia
 {
@@ -61,6 +61,8 @@ class Post extends Model implements HasMedia
 
     public function getFormattedDateAttribute()
     {
-        return $this->date->format('d M Y');
+        return Carbon::parse($this->date)
+            ->locale('es')
+            ->translatedFormat('d M Y');
     }
 }
