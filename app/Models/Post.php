@@ -61,8 +61,6 @@ class Post extends Model implements HasMedia
 
     public function getFormattedDateAttribute()
     {
-        return Carbon::parse($this->date)
-            ->locale('es')
-            ->translatedFormat('d M Y');
+        return $this->date->isoFormat('D MMM Y');
     }
 }
