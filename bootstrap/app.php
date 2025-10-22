@@ -20,5 +20,5 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })->withSchedule(function (Schedule $schedule) {
         $schedule->command('associates:sync')->dailyAt("05:30");
-        $schedule->command('schedule:test')->everyThirtySeconds();
+        // $schedule->command('schedule:test')->everyThirtySeconds();
     })->create();
