@@ -50,6 +50,8 @@ services:
       TZ: Europe/Madrid
     depends_on:
       - app
+    healthcheck:
+      disable: true
 
   node:
     image: node:24-alpine
