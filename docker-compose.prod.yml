@@ -5,11 +5,10 @@ services:
       args:
         - APP_ENV=production
     ports:
-      - "80:80"
       - "443:443"
       - "443:443/udp"
     environment:
-      SERVER_NAME: ":80"
+      SERVER_NAME: "apcas.cat"
       TZ: Europe/Madrid
     volumes:
       - vendor_data:/app/vendor
