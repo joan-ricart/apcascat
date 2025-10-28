@@ -70,6 +70,9 @@ class PostResource extends Resource
                     ->default(date('now'))
                     ->required()
                     ->columnSpan(1),
+                Forms\Components\Checkbox::make('published')
+                    ->label(__('Publicar'))
+                    ->columnSpanFull(),
                 Forms\Components\RichEditor::make('body')
                     ->label(__('Cuerpo'))
                     ->columnSpanFull()
@@ -92,9 +95,6 @@ class PostResource extends Resource
                     ->searchable()
                     ->preload()
                     ->required(),
-                Forms\Components\Checkbox::make('published')
-                    ->label(__('Publicar'))
-                    ->columnSpanFull(),
                 SpatieMediaLibraryFileUpload::make('images')
                     ->label(__('Imágenes'))
                     ->collection('images')
