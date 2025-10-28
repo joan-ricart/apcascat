@@ -92,6 +92,9 @@ class PostResource extends Resource
                     ->searchable()
                     ->preload()
                     ->required(),
+                Forms\Components\Checkbox::make('published')
+                    ->label(__('Publicar'))
+                    ->columnSpanFull(),
                 SpatieMediaLibraryFileUpload::make('images')
                     ->label(__('Imágenes'))
                     ->collection('images')
@@ -105,9 +108,7 @@ class PostResource extends Resource
                     ->reorderable()
                     ->multiple()
                     ->columnSpanFull(),
-                Forms\Components\Checkbox::make('published')
-                    ->label(__('Publicar'))
-                    ->columnSpanFull(),
+
             ])
             ->columns(3);
     }
