@@ -67,7 +67,7 @@ class PostResource extends Resource
                     ]),
                 Forms\Components\DatePicker::make('date')
                     ->label(__('Fecha'))
-                    ->default(date('now'))
+                    // ->default(date('Y-m-d'))
                     ->required()
                     ->columnSpan(1),
                 Forms\Components\Checkbox::make('published')
