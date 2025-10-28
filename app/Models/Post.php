@@ -24,7 +24,7 @@ class Post extends Model implements HasMedia
         'published'
     ];
 
-    protected $casts = ['date' => 'datetime'];
+    protected $casts = ['date' => 'date'];
 
     public $translatable = ['title', 'body', 'intro'];
 
