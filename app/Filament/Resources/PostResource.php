@@ -70,6 +70,7 @@ class PostResource extends Resource
                     ->default(date('Y-m-d'))
                     ->displayFormat('d/m/Y')
                     ->format('Y-m-d')
+                    ->native(false)
                     ->required()
                     ->columnSpan(1),
                 Forms\Components\Checkbox::make('published')
