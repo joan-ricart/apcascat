@@ -68,7 +68,6 @@ class PostResource extends Resource
                 Forms\Components\DatePicker::make('date')
                     ->label(__('Fecha'))
                     ->default(now())  // ✅ Carbon instance
-                    ->native(false)   // ✅ Exactly controls parsing
                     ->displayFormat('d/m/Y')
                     ->format('Y-m-d')
                     ->required()
