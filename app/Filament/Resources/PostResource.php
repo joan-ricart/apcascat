@@ -67,10 +67,10 @@ class PostResource extends Resource
                     ]),
                 Forms\Components\DatePicker::make('date')
                     ->label(__('Fecha'))
-                    ->default(date('Y-m-d'))
+                    ->default(now())  // ✅ Carbon instance
+                    ->native(false)   // ✅ Exactly controls parsing
                     ->displayFormat('d/m/Y')
                     ->format('Y-m-d')
-                    ->native(false)
                     ->required()
                     ->columnSpan(1),
                 Forms\Components\Checkbox::make('published')
