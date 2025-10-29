@@ -67,7 +67,7 @@ class PostResource extends Resource
                     ]),
                 Forms\Components\DatePicker::make('date')
                     ->label(__('Fecha'))
-                    ->default(today())
+                    ->default(date('Y-m-d'))
                     ->displayFormat('d/m/Y')
                     ->format('Y-m-d')
                     ->required()
