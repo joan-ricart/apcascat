@@ -19,7 +19,7 @@ class PostCategory extends Model
      */
     public function posts(): BelongsToMany
     {
-        return $this->belongsToMany(Post::class);
+        return $this->belongsToMany(Post::class)->published();
     }
 
     public function getRouteKeyName(): string
