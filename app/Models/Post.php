@@ -9,8 +9,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
-use Illuminate\Database\Eloquent\Attributes\Scope;
-use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 
 class Post extends Model implements HasMedia
 {
@@ -65,12 +64,8 @@ class Post extends Model implements HasMedia
         return $this->date->isoFormat('D MMM Y');
     }
 
-    /**
-     * Scope a query to only include popular users.
-     */
-    #[Scope]
-    protected function published(Builder $query): void
+    public function scopePublished($query)
     {
-        $query->where('published', true);
+        return $query->where('published', true);
     }
 }
