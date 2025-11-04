@@ -63,4 +63,9 @@ class Post extends Model implements HasMedia
     {
         return $this->date->isoFormat('D MMM Y');
     }
+
+    public function scopePublished($query)
+    {
+        return $query->where('published', true);
+    }
 }

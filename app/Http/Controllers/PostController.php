@@ -12,7 +12,7 @@ class PostController extends Controller
 {
     public function index(Request $request)
     {
-        $posts = Post::orderByDesc('date')->paginate(18);
+        $posts = Post::published()->orderByDesc('date')->paginate(18);
 
         if ($request->ajax()) {
             return response()->json([

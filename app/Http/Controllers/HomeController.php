@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     function __invoke(Request $request)
     {
-        $posts = Post::orderByDesc('date')->limit(9)->get();
+        $posts = Post::published()->orderByDesc('date')->limit(9)->get();
 
         return view('home', compact('posts'));
     }
