@@ -107,6 +107,7 @@ class PostResource extends Resource
                 SpatieMediaLibraryFileUpload::make('files')
                     ->label(__('Documentos adjuntos'))
                     ->collection('files')
+                    ->preserveFilenames()
                     ->reorderable()
                     ->multiple()
                     ->columnSpanFull(),

@@ -56,7 +56,7 @@ class Post extends Model implements HasMedia
 
     public function getFiles()
     {
-        return $this->getMedia('files')->map(fn($item) => $item->getUrl());
+        return $this->getMedia('files');
     }
 
     public function getFormattedDateAttribute()
